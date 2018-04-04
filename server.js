@@ -3,11 +3,15 @@ const routes = require('./routes/index')
 const bodyParser = require('body-parser');
 const server = express();
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 mongoose.Promise = global.Promise;
 
 server.use(bodyParser.json());
 server.set('json spaces', 2);
+
+// Allow access control origin
+server.use(cors())
 routes(server);
 
 server.listen(4000, () =>{
