@@ -1,9 +1,9 @@
-const FacebookAccount = require('../models/facebookAccount');
+const Account = require('../models/accounts');
 
 module.exports = {
     connect(req, res) {
         // console.log(req.body);
-        let account = new FacebookAccount(req.body);
+        let account = new Account(req.body);
 
         account.save().then(() => {
             res.send({
