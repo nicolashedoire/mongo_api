@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const facebookAccountSchema = new Schema({
     id: {
-        type: String
+        type: String,
+        unique: true
     },
     name: {
         type: String
