@@ -31,10 +31,9 @@ const accountSchema = new Schema({
         required: true
     }
 
-}, { collection: "FACEBOOK_COLLEC" });
+}, { collection: "ACCOUNT_COLLEC" });
 
 const Account = mongoose.model('Account', accountSchema);
-
 
 module.exports = Account;
 
