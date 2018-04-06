@@ -1,27 +1,27 @@
 const mongoose = require('mongoose');
-const Movie = require('./movies');
+const Activity = require('./activities');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   name: String,
   age: Number,
-  movies:[{
-    type : Schema.Types.ObjectId, 
-    ref: 'movie'
-  }],
-   
+  activities: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'activity'
+    }
+  ]
 },{collection: "USER_COLLEC"});
 
-UserSchema.virtual('countMovies').get(function() {
-  return this.movies.length;
+UserSchema.virtual('countActivities').get(function() {
+  return this.activities.length;
 });
 
 
 UserSchema.pre('remove',function(next) {
-  Movie.remove({_id: {$in : this.movies}}).then(() => {
+  Activity.remove({_id: {$in : this.activities}}).then(() => {
     next();
   });
-  
 });
 
 const User = mongoose.model('user',UserSchema);
