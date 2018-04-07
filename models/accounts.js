@@ -42,6 +42,6 @@ const accountSchema = new Schema(
   { collection: 'ACCOUNT_COLLEC' }
 );
 
-const Account = mongoose.model('Account', accountSchema);
+const Account = mongoose.model('account', accountSchema);
 
 module.exports = Account;

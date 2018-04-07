@@ -2,8 +2,9 @@ const Activity = require('../models/activities');
 const Account = require('../models/accounts');
 module.exports = {
   readAll(req, res) {
-    Activity.find().then(activities => {
-      res.send(activities);
+    Account.findOne({ id: req.query.userId }).populate('activities').then(user => {
+      console.log(user);
+      res.send({ activities: user.activities });
     });
   },
   read(req, res) {
@@ -18,12 +19,11 @@ module.exports = {
     const time = req.body.time;
 
     Account.findOne({ id: req.body.userId }).then(user => {
-      const activity = new Activity({ label, city, time});
+      const activity = new Activity({ label, city, time, user});
       user.activities.push(activity);
       user.save().then(() => {
         activity.save().then(() => {
           Account.findOne({ id: req.body.userId }).populate('activities').then(user => {
-            console.log(user.activities);
             res.send({ activities: user.activities });
           });
         });

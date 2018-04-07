@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const AccountSchema = require('./accounts').schema;
 
 const activitySchema = new Schema(
   {
@@ -11,6 +12,10 @@ const activitySchema = new Schema(
     },
     time: {
       type: String
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'account'
     }
   },
   { collection: 'ACTIVITY_COLLEC' }
