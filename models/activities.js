@@ -10,6 +10,9 @@ const activitySchema = new Schema(
     city: {
       type: String
     },
+    place: {
+      type: String
+    },
     time: {
       type: String
     },

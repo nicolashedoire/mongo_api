@@ -19,9 +19,10 @@ module.exports = {
     const label = req.body.label;
     const city = req.body.city;
     const time = req.body.time;
+    const place = req.body.place;
 
     Account.findOne({ id: req.body.userId }).then(user => {
-      const activity = new Activity({ label, city, time, user });
+      const activity = new Activity({ label, city, place, time, user });
       user.activities.push(activity);
       user.save().then(() => {
         activity.save().then(() => {
