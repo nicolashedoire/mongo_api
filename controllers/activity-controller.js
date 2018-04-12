@@ -16,11 +16,10 @@ module.exports = {
   },
   getByPlaceId(req, res) {
     const id = req.params.id;
-    console.log(id);
-    Activity.find({place: id}).then(activities => {
-      res.send({
-        activities: activities
-      });
+    Activity.find({place: id})
+      .populate('user')
+      .then(activities => {
+      res.send({activities: activities});
     });
   },
   create(req, res) {
