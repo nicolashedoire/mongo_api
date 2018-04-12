@@ -5,7 +5,6 @@ module.exports = {
     Account.findOne({ id: req.query.userId })
       .populate('activities')
       .then(user => {
-        console.log(user.activities);
           res.send({ activities: user.activities });
       });
   },
@@ -13,6 +12,15 @@ module.exports = {
     const id = req.params.id;
     Activity.findById({ _id: id }).then(activity => {
       res.send({ activity });
+    });
+  },
+  getByPlaceId(req, res) {
+    const id = req.params.id;
+    console.log(id);
+    Activity.find({place: id}).then(activities => {
+      res.send({
+        activities: activities
+      });
     });
   },
   create(req, res) {

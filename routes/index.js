@@ -29,6 +29,8 @@ module.exports = (server) => {
     server.post('/activity', ActivityController.create);
     server.delete('/activity', ActivityController.delete);
 
+    server.get('activities/place/:id', ActivityController.getByPlaceId);
+
     //GROUP
     server.get('/groups', GroupController.readAll);
     server.get('/group/:id', GroupController.read);
