@@ -9,6 +9,10 @@ places = [
     },
     {
         city: 'Lille',
+        name: 'la plage 2'
+    },
+    {
+        city: 'Lille',
         name: 'le kremlin'
     },
 ];
