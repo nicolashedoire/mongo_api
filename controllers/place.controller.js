@@ -79,10 +79,11 @@ places = [
 
 
 module.exports = {
-    
+
+    getAll (req, res) {
+        return places;
+    },
     search (req,res) {
-     // TODO
-     console.log(req.params.place);
 
      let findedPlaces = places.filter(place => place.name.includes(req.params.place));
 

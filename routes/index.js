@@ -37,6 +37,7 @@ module.exports = (server) => {
 
     //PLACE
     server.get('/search/:place', PlaceController.search);
+    server.get('/places', PlaceController.getAll);
 }
 
 
