@@ -3,6 +3,7 @@ MovieController = require('../controllers/movie-controller');
 LoginController = require('../controllers/login-controller');
 ActivityController = require('../controllers/activity-controller');
 GroupController = require('../controllers/group-controller');
+PlaceController = require('../controllers/place.controller');
 
 module.exports = (server) => {
     // Envoi les parametres req et res de facon cachée a votre fonction.
@@ -33,6 +34,9 @@ module.exports = (server) => {
     server.get('/group/:id', GroupController.read);
     server.post('/group', GroupController.create);
     server.delete('/group', GroupController.delete);
+
+    //PLACE
+    server.get('/search/:place', PlaceController.search);
 }
 
 
