@@ -44,7 +44,8 @@ module.exports = {
   },
 
   delete(req, res) {
-    const id = req.body.id;
+    console.log(req.params.id);
+    const id = req.params.id;
     Activity.findByIdAndRemove({ _id: id }).then(activity => {
       res.send({ activity });
     });

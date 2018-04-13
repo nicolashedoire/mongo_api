@@ -27,7 +27,7 @@ module.exports = (server) => {
     server.get('/activities', ActivityController.readAll);
     server.get('/activity/:id', ActivityController.read);
     server.post('/activity', ActivityController.create);
-    server.delete('/activity', ActivityController.delete);
+    server.delete('/activity/:id', ActivityController.delete);
 
     server.get('/activities/place/:id', ActivityController.getByPlaceId);
 
