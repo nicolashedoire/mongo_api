@@ -13,6 +13,7 @@ function generateToken(user) {
     'APLMDJKN481DJNOIJSOKPCO48',
     { expiresIn: '1h' }
   );
+  // check jwt => https://jwt.io/
   return token;
 }
 
