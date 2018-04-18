@@ -1,4 +1,5 @@
 const express = require('express');
+const compression = require('compression');
 const routes = require('./routes/index')
 const bodyParser = require('body-parser');
 const server = express();
@@ -11,6 +12,7 @@ const env = require('./environments/dev');
 mongoose.Promise = global.Promise;
 
 server.use(bodyParser.json());
+server.use(compression());
 server.set('json spaces', 2);
 
 server.set('superSecret', env.secret); // secret variable
