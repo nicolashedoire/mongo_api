@@ -5,18 +5,19 @@ const server = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+const env = require('./environments/dev');
 
+// Override mongoose promise by global promise
 mongoose.Promise = global.Promise;
-
-const secret = 'APLMDJKN481DJNOIJSOKPCO48';
 
 server.use(bodyParser.json());
 server.set('json spaces', 2);
 
-server.set('superSecret', secret); // secret variable
+server.set('superSecret', env.secret); // secret variable
 
 // Allow access control origin
 server.use(cors())
+
 routes(server);
 
 server.listen(4000, () =>{

@@ -5,6 +5,24 @@ ActivityController = require('../controllers/activity-controller');
 GroupController = require('../controllers/group-controller');
 PlaceController = require('../controllers/place.controller');
 
+const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+
+
+const checkUserToken = function(req, res, next) {
+    console.log(req.header('authorization'));
+    const token = req.header('authorization');
+
+    jwt.verify(token, secret, (err, decodedToken) => {
+        if(err){
+            console.error(err);
+            return res.status(401).json({success: false, message: 'Token expected'});
+        }
+    });
+
+    // TODO verify JWT
+    next();
+}
+
 module.exports = (server) => {
     // Envoi les parametres req et res de facon cachée a votre fonction.
 
@@ -12,34 +30,28 @@ module.exports = (server) => {
     server.post('/login', LoginController.connect);
 
     //USER
-    server.get('/users', UserController.readAll);
-    server.get('/user/:id', UserController.read);
-    server.post('/user', UserController.create);
-    server.delete('/user', UserController.delete);
-
-    //MOVIE
-    server.get('/movies', MovieController.readAll);
-    server.get('/movie/:id', MovieController.read);
-    server.post('/movie', MovieController.create);
-    server.delete('/movie', MovieController.delete);
+    server.get('/users', checkUserToken, UserController.readAll);
+    server.get('/user/:id', checkUserToken, UserController.read);
+    server.post('/user', checkUserToken, UserController.create);
+    server.delete('/user', checkUserToken, UserController.delete);
 
     //ACTIVITY
-    server.get('/activities', ActivityController.readAll);
-    server.get('/activity/:id', ActivityController.read);
-    server.post('/activity', ActivityController.create);
-    server.delete('/activity/:id', ActivityController.delete);
+    server.get('/activities', checkUserToken, ActivityController.readAll);
+    server.get('/activity/:id', checkUserToken, ActivityController.read);
+    server.post('/activity', checkUserToken, ActivityController.create);
+    server.delete('/activity/:id', checkUserToken, ActivityController.delete);
 
-    server.get('/activities/place/:id', ActivityController.getByPlaceId);
+    server.get('/activities/place/:id', checkUserToken, ActivityController.getByPlaceId);
 
     //GROUP
-    server.get('/groups', GroupController.readAll);
-    server.get('/group/:id', GroupController.read);
-    server.post('/group', GroupController.create);
-    server.delete('/group', GroupController.delete);
+    server.get('/groups', checkUserToken, GroupController.readAll);
+    server.get('/group/:id', checkUserToken, GroupController.read);
+    server.post('/group', checkUserToken, GroupController.create);
+    server.delete('/group', checkUserToken,  GroupController.delete);
 
     //PLACE
-    server.get('/search/:place', PlaceController.search);
-    server.get('/places', PlaceController.getAll);
+    server.get('/search/:place', checkUserToken, PlaceController.search);
+    server.get('/places', checkUserToken, PlaceController.getAll);
 }
 
 

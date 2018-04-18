@@ -1,5 +1,6 @@
 const Account = require('../models/accounts');
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+const env = require('../environments/dev');
 
 function generateToken(user) {
   const token = jwt.sign(
@@ -10,7 +11,7 @@ function generateToken(user) {
       image: user.image,
       name: user.name
     },
-    'APLMDJKN481DJNOIJSOKPCO48',
+    env.secret,
     { expiresIn: '1h' }
   );
   // check jwt => https://jwt.io/
