@@ -18,8 +18,7 @@ const checkUserToken = function(req, res, next) {
         .status(401)
         .json({ success: false, message: 'Token expected' });
     }
-
-    // TODO verify JWT
+    
     next();
   });
 };
