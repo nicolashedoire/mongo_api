@@ -92,5 +92,8 @@ module.exports = {
       status: 200,
       places: findedPlaces
     });
+  },
+  add(req, res) {
+    console.log(req.body);
   }
 };
