@@ -95,5 +95,8 @@ module.exports = {
   },
   add(req, res) {
     console.log(req.body);
+    res.send({
+      status: 200
+    });
   }
 };

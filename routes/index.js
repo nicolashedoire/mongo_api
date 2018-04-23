@@ -56,4 +56,5 @@ module.exports = server => {
   //PLACE
   server.get('/search/:place', checkUserToken, PlaceController.search);
   server.get('/places', checkUserToken, PlaceController.getAll);
+  server.post('/place', checkUserToken, PlaceController.add);
 };
