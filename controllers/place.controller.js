@@ -1,86 +1,12 @@
-places = [
-  {
-    id: 1,
-    city: 'Lille',
-    name: 'b148'
-  },
-  {
-    id: 2,
-    city: 'Lille',
-    name: 'la plage'
-  },
-  {
-    id: 3,
-    city: 'Lille',
-    name: 'la plage 2'
-  },
-  {
-    id: 4,
-    city: 'Lille',
-    name: 'le kremlin'
-  },
-  {
-    id: 5,
-    city: 'Lille',
-    name: 'la capsule'
-  },
-  {
-    id: 6,
-    city: 'Lille',
-    name: 'le dernier bar avant la fin du monde'
-  },
-  {
-    id: 7,
-    city: 'Lille',
-    name: 'le bar braz'
-  },
-  {
-    id: 8,
-    city: 'Lille',
-    name: 'le dansy'
-  },
-  {
-    id: 9,
-    city: 'Lille',
-    name: 'le bar parallèle'
-  },
-  {
-    id: 10,
-    city: 'Lille',
-    name: 'le bartown'
-  },
-  {
-    id: 11,
-    city: 'Lille',
-    name: 'le beerstro'
-  },
-  {
-    id: 12,
-    city: 'Lille',
-    name: 'le tir na nog'
-  },
-  {
-    id: 13,
-    city: 'Lille',
-    name: "l'irlandais"
-  },
-  {
-    id: 14,
-    city: 'Lille',
-    name: 'le café oz the australian bar'
-  },
-  {
-    id: 15,
-    city: 'Lille',
-    name: 'la pirogue'
-  }
-];
+const Bar = require('../models/bars');
+
+places = [];
 
 module.exports = {
   getAll(req, res) {
-    res.send({
-      status: 200,
-      places: places
+    Bar.find().then( (bars) =>{
+      places = bars;
+      res.send(bars);
     });
   },
   search(req, res) {
@@ -94,9 +20,31 @@ module.exports = {
     });
   },
   add(req, res) {
-    console.log(req.body);
-    res.send({
-      status: 200
+    const data = req.body;
+    const formatted_adresss = data.formatted_address;
+    const id = data.id;
+    const name = data.name;
+    const place_id = data.place_id;
+    const vicinity = data.vicinity;
+    const location = data.geometry.location;
+
+    const bar = new Bar({
+      formatted_adresss: formatted_adresss,
+      id: id,
+      name: name,
+      place_id: place_id,
+      vicinity: vicinity,
+      location: location
     });
+    bar.save().then(
+      () => {
+        res.send(bar);
+      },
+      err => {
+        res.send({
+          status: 'ALREADY_EXISTS'
+        });
+      }
+    );
   }
 };
