@@ -27,6 +27,7 @@ module.exports = {
     const place_id = data.place_id;
     const vicinity = data.vicinity;
     const location = data.geometry.location;
+    const photo = data.photo;
 
     const bar = new Bar({
       formatted_adresss: formatted_adresss,
@@ -34,7 +35,8 @@ module.exports = {
       name: name,
       place_id: place_id,
       vicinity: vicinity,
-      location: location
+      location: location,
+      photo: photo
     });
     bar.save().then(
       () => {

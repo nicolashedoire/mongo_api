@@ -3,7 +3,8 @@ const compression = require('compression');
 const routes = require('./routes/index')
 const bodyParser = require('body-parser');
 const server = express();
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+require('mongoose-function')(mongoose);
 const cors = require('cors');
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const env = require('./environments/dev');

@@ -1,35 +1,40 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+require('mongoose-function')(mongoose);
 const Schema = mongoose.Schema;
 
-const barSchema = new Schema({
+const barSchema = new Schema(
+  {
     formatted_address: {
-        type : String
+      type: String
     },
-    id:{
-        type : String,
-        unique: true
+    id: {
+      type: String,
+      unique: true
     },
     name: {
-        type: String
+      type: String
     },
     place_id: {
-        type: String
+      type: String
     },
     vicinity: {
-        type: String
+      type: String
     },
     location: {
-        lat: {
-            type: String
-        },
-        lng: {
-            type: String
-        }
+      lat: {
+        type: Number
+      },
+      lng: {
+        type: Number
+      }
+    },
+    photo: {
+      type: String
     }
-},{collection: "BAR_COLLEC"});
+  },
+  { collection: 'BAR_COLLEC' }
+);
 
-const Bar = mongoose.model('bar',barSchema);
-
+const Bar = mongoose.model('bar', barSchema);
 
 module.exports = Bar;
-

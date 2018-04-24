@@ -1,5 +1,7 @@
 const Activity = require('../models/activities');
 const Account = require('../models/accounts');
+const Bar = require('../models/bars');
+
 module.exports = {
   readAll(req, res) {
     Account.findOne({ id: req.query.userId })
@@ -16,35 +18,39 @@ module.exports = {
   },
   getByPlaceId(req, res) {
     const id = req.params.id;
-    Activity.find({place: id})
+    Activity.find({placeId: id})
       .populate('user')
       .then(activities => {
       res.send({activities: activities});
     });
   },
   create(req, res) {
+    
     const label = req.body.label;
     const city = req.body.city;
     const time = req.body.time;
-    const place = req.body.place;
+    const id = req.body.placeId;
+    placeName = '';
 
-    Account.findOne({ id: req.body.userId }).then(user => {
-      const activity = new Activity({ label, city, place, time, user });
-      user.activities.push(activity);
-      user.save().then(() => {
-        activity.save().then(() => {
-          Account.findOne({ id: req.body.userId })
-            .populate('activities')
-            .then(user => {
-              res.send({ activities: user.activities });
-            });
+    Bar.find({id: id}).then(bar => {
+      placeName = bar[0].name;
+      Account.findOne({ id: req.body.userId }).then(user => {
+        const activity = new Activity({ label: label, placeName: placeName, placeId: id, time: time, user: user });
+        user.activities.push(activity);
+        user.save().then(() => {
+          activity.save().then(() => {
+            Account.findOne({ id: req.body.userId })
+              .populate('activities')
+              .then(user => {
+                res.send({ activities: user.activities });
+              });
+          });
         });
       });
     });
   },
 
   delete(req, res) {
-    console.log(req.params.id);
     const id = req.params.id;
     Activity.findByIdAndRemove({ _id: id }).then(activity => {
       res.send({ activity });

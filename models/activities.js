@@ -7,10 +7,10 @@ const activitySchema = new Schema(
     label: {
       type: String
     },
-    city: {
+    placeName: {
       type: String
     },
-    place: {
+    placeId: {
       type: String
     },
     time: {
