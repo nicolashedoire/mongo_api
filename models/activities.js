@@ -16,6 +16,11 @@ const activitySchema = new Schema(
     time: {
       type: String
     },
+    date: {
+      type: Date,
+      // `Date.now()` returns the current unix timestamp as a number
+      default: Date.now
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: 'account'
