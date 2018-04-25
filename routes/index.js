@@ -37,6 +37,7 @@ module.exports = server => {
 
   //ACTIVITY
   server.get('/activities', checkUserToken, ActivityController.readAll);
+  server.get('/activities/today', checkUserToken, ActivityController.readAllToday);
   server.get('/activity/:id', checkUserToken, ActivityController.read);
   server.post('/activity', checkUserToken, ActivityController.create);
   server.post('/activity/:id', checkUserToken, ActivityController.delete);

@@ -11,6 +11,26 @@ module.exports = {
         res.send({ activities: user.activities });
       });
   },
+  readAllToday(req, res) {
+    var startDate = new Date();
+    startDate.setHours( 0,0,0,0 );
+    var endDate = new Date();
+    var day  = endDate.getDate() + 1;
+    endDate.setHours( 0,0,0,0);
+
+    Activity.find({
+      date: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    })
+      .populate('user')
+      .then( results => {
+        // show the admins in the past month
+        console.log(results);
+        res.send(results);
+      });
+  },
   read(req, res) {
     const id = req.params.id;
     Activity.findById({ _id: id }).then(activity => {
