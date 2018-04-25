@@ -32,6 +32,18 @@ const accountSchema = new Schema(
       type: String,
       required: true
     },
+    age: {
+      type: String, 
+      default: null
+    },
+    rate: {
+      type: Number,
+      default: 0
+    },
+    hobbies: {
+      type: Array,
+      default: []
+    },
     activities: [
       {
         type: Schema.Types.ObjectId,
