@@ -16,6 +16,7 @@ module.exports = {
     startDate.setHours( 0,0,0,0 );
     var endDate = new Date();
     var day  = endDate.getDate() + 1;
+    endDate.setDate(day);
     endDate.setHours( 0,0,0,0);
 
     Activity.find({
