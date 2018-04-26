@@ -26,6 +26,7 @@ module.exports = {
       }
     })
       .populate('user')
+      .populate('users')
       .then( results => {
         // show the admins in the past month
         console.log(results);
@@ -76,7 +77,20 @@ module.exports = {
       });
     });
   },
-
+  join(req, res) {
+    const activityId = req.params.id;
+    const user = req.body;
+    Account.find({id: user.id}).then((user) => {
+      Activity.findById(activityId).then((activity) => {
+        activity.users.push(user[0]);
+        activity.save().then(() => {
+          res.send({
+            status: 200
+          });
+        });
+      });
+    });
+  },
   delete(req, res) {
     const id = req.params.id;
     Activity.findById(req.params.id)
