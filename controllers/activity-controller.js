@@ -13,11 +13,11 @@ module.exports = {
   },
   readAllToday(req, res) {
     var startDate = new Date();
-    startDate.setHours( 0,0,0,0 );
+    startDate.setHours(0, 0, 0, 0);
     var endDate = new Date();
-    var day  = endDate.getDate() + 1;
+    var day = endDate.getDate() + 1;
     endDate.setDate(day);
-    endDate.setHours( 0,0,0,0);
+    endDate.setHours(0, 0, 0, 0);
 
     Activity.find({
       date: {
@@ -27,7 +27,7 @@ module.exports = {
     })
       .populate('user')
       .populate('users')
-      .then( results => {
+      .then(results => {
         // show the admins in the past month
         console.log(results);
         res.send(results);
@@ -80,29 +80,31 @@ module.exports = {
   join(req, res) {
     const activityId = req.params.id;
     const user = req.body;
-    Account.find({id: user.id}).then((user) => {
-      Activity.findById(activityId).populate('users').populate('user').then((activity) => {
-        if(activity.user.id === user.id){
-          res.send('NOT_ALLOWED');
-          return;
-        }
-
-        for(let i = 0; i < activity.users.length; i++){
-          console.log(user[0].id, activity.users[i].id);
-          if(user[0].id === activity.users[i].id){
-            res.send({
-              status: 'ALREADY_EXISTS'
-            });
+    Account.find({ id: user.id }).then(user => {
+      Activity.findById(activityId)
+        .populate('users')
+        .populate('user')
+        .then(activity => {
+          if (activity.user.id === user[0].id) {
+            res.send({ status: 'NOT_ALLOWED' });
             return;
           }
-        }
-        activity.users.push(user[0]);
-        activity.save().then(() => {
-          res.send({
-            status: 200
+
+          for (let i = 0; i < activity.users.length; i++) {
+            if (user[0].id === activity.users[i].id) {
+              res.send({
+                status: 'ALREADY_EXISTS'
+              });
+              return;
+            }
+          }
+          activity.users.push(user[0]);
+          activity.save().then(() => {
+            res.send({
+              status: 200
+            });
           });
         });
-      });
     });
   },
   delete(req, res) {
