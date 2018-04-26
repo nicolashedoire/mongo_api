@@ -24,7 +24,13 @@ const activitySchema = new Schema(
     user: {
       type: Schema.Types.ObjectId,
       ref: 'account'
-    }
+    },
+    users: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'account'
+      }
+    ]
   },
   { collection: 'ACTIVITY_COLLEC' }
 );
