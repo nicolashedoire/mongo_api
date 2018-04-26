@@ -81,7 +81,21 @@ module.exports = {
     const activityId = req.params.id;
     const user = req.body;
     Account.find({id: user.id}).then((user) => {
-      Activity.findById(activityId).then((activity) => {
+      Activity.findById(activityId).populate('users').populate('user').then((activity) => {
+        if(activity.user.id === user.id){
+          res.send('NOT_ALLOWED');
+          return;
+        }
+
+        for(let i = 0; i < activity.users.length; i++){
+          console.log(user[0].id, activity.users[i].id);
+          if(user[0].id === activity.users[i].id){
+            res.send({
+              status: 'ALREADY_EXISTS'
+            });
+            return;
+          }
+        }
         activity.users.push(user[0]);
         activity.save().then(() => {
           res.send({
