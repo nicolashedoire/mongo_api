@@ -19,6 +19,10 @@ const querySchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'activity'
     },
+    status: {
+      type: Number,
+      default: 0
+    }
   },
   { collection: 'QUERY_COLLEC' }
 );

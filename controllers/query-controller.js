@@ -11,6 +11,22 @@ module.exports = {
         res.send(queries);
       });
   },
+  getFriendRequests(req, res) {
+    const id = req.query.userId;
+    Account.findOne({id: id}).then(user => {
+      Query.find()
+      .populate({ path: "activity", match: { user: user._id }})
+      .then(queries => {
+        let result = []
+        for(let i = 0; i < queries.length; i++){
+          if(queries[i].activity !== null){
+            result.push(queries[i]);
+          }
+        }
+        res.send(result);
+      });
+    });
+  },
   delete(req, res) {
     const id = req.params.id;
     Query.findById(id).populate('activity').then(query => {
