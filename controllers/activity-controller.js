@@ -113,7 +113,7 @@ module.exports = {
           activity.users.push(user[0]);
           activity.save().then(() => {
             query = new Query({
-              activityId : activityId,
+              activityId: activityId,
               userId: user[0].id,
               activity: activity
             });
@@ -129,7 +129,7 @@ module.exports = {
   },
   delete(req, res) {
     const id = req.params.id;
-    Activity.findById(req.params.id)
+    Activity.findById(id)
       .populate('user')
       .then(activity => {
         let userId = activity.user._id;
