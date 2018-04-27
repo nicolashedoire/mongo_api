@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Activity = require('./activities');
 
 const querySchema = new Schema(
   {
@@ -13,7 +14,11 @@ const querySchema = new Schema(
     },
     userId: {
         type: String
-    }
+    },
+    activity: {
+      type: Schema.Types.ObjectId,
+      ref: 'activity'
+    },
   },
   { collection: 'QUERY_COLLEC' }
 );

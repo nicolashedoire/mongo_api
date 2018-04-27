@@ -28,6 +28,4 @@ module.exports = {
              res.send({movie});
          }); 
     },
-
-    
 };

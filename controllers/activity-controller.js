@@ -1,5 +1,6 @@
 const Activity = require('../models/activities');
 const Account = require('../models/accounts');
+const Query = require('../models/queries');
 const Bar = require('../models/bars');
 const ObjectId = require('mongoose').ObjectID;
 
@@ -101,7 +102,6 @@ module.exports = {
             res.send({ status: 'NOT_ALLOWED' });
             return;
           }
-
           for (let i = 0; i < activity.users.length; i++) {
             if (user[0].id === activity.users[i].id) {
               res.send({
@@ -112,8 +112,16 @@ module.exports = {
           }
           activity.users.push(user[0]);
           activity.save().then(() => {
-            res.send({
-              status: 200
+            query = new Query({
+              activityId : activityId,
+              userId: user[0].id,
+              activity: activity
+            });
+
+            query.save().then(() => {
+              res.send({
+                status: 200
+              });
             });
           });
         });
