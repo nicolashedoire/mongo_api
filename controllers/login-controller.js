@@ -20,7 +20,6 @@ function generateToken(user) {
 
 module.exports = {
   connect(req, res) {
-    // console.log(req.body);
     let account = new Account(req.body);
     
     account.save().then(

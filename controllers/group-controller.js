@@ -3,7 +3,6 @@ const Account = require('../models/accounts');
 module.exports = {
   readAll(req, res) {
     Group.find().then(groups => {
-      console.log(groups);
       res.send({ groups: groups });
     });
   },

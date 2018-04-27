@@ -29,7 +29,6 @@ module.exports = {
       .populate('users')
       .then(results => {
         // show the admins in the past month
-        console.log(results);
         res.send(results);
       });
   },
@@ -40,8 +39,21 @@ module.exports = {
     });
   },
   getByPlaceId(req, res) {
+    var startDate = new Date();
+    startDate.setHours(0, 0, 0, 0);
+    var endDate = new Date();
+    var day = endDate.getDate() + 1;
+    endDate.setDate(day);
+    endDate.setHours(0, 0, 0, 0);
+
     const id = req.params.id;
-    Activity.find({ placeId: id })
+    Activity.find({
+      placeId: id,
+      date: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    })
       .populate('user')
       .then(activities => {
         res.send({ activities: activities });
