@@ -15,15 +15,9 @@ module.exports = {
     const id = req.query.userId;
     Account.findOne({id: id}).then(user => {
       Query.find()
-      .populate({ path: "activity", match: { user: user._id }})
+      .populate("activity", null,  { user: user._id })
       .then(queries => {
-        let result = []
-        for(let i = 0; i < queries.length; i++){
-          if(queries[i].activity !== null){
-            result.push(queries[i]);
-          }
-        }
-        res.send(result);
+        res.send(queries);
       });
     });
   },
@@ -42,6 +36,14 @@ module.exports = {
           });
         });
       });
+    });
+  },
+  update(req, res) {
+    const id = req.params.id;
+    const status = req.body.status;
+    Query.findByIdAndUpdate(id, { status : status}).then((response) => {
+      console.log(response);
+      res.send(response);
     });
   }
 };

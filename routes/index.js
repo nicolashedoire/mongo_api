@@ -54,6 +54,7 @@ module.exports = server => {
   server.get('/queries', checkUserToken, QuerieController.readAll);
   server.delete('/querie/:id', checkUserToken, QuerieController.delete);
   server.get('/requests', checkUserToken, QuerieController.getFriendRequests);
+  server.put('/querie/update/:id', checkUserToken, QuerieController.update)
 
   //GROUP
   server.get('/groups', checkUserToken, GroupController.readAll);
