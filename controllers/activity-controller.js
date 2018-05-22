@@ -17,7 +17,6 @@ module.exports = {
       });
   },
   readAllToday(req, res) {
-
     var startDate = new Date();
     startDate.setHours(0, 0, 0, 0);
     var endDate = new Date();
@@ -169,15 +168,11 @@ module.exports = {
             Activity.findByIdAndRemove({
               _id: id
             }).then(activity => {
-
               Account.findById(userId).then((user) => {
-
-                console.log(user);
                 if (user.activities.length === 0) {
                   user.isActive = false;
 
                   user.save().then(() => {
-
                     res.send({
                       status: 200
                     });
