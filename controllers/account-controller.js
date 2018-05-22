@@ -13,6 +13,12 @@ module.exports = {
         })
        
     },
+
+    readAllActive(req, res) {
+        Account.find({isActive : true}).then((accounts) => {
+            res.send({accounts});
+        });
+    },
         
     delete(req,res){
          const id = req.body.id;

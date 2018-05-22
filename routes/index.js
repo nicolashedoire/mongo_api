@@ -5,6 +5,7 @@ ActivityController = require('../controllers/activity-controller');
 GroupController = require('../controllers/group-controller');
 PlaceController = require('../controllers/place.controller');
 QuerieController = require('../controllers/query-controller');
+AccountController = require('../controllers/account-controller');
 
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const env = require('../environments/dev');
@@ -29,6 +30,10 @@ module.exports = server => {
 
   //LOGIN
   server.post('/login', LoginController.connect);
+
+
+  // ACCOUNT
+  server.get('/accounts/active', checkUserToken, AccountController.readAllActive);
 
   //USER
   server.get('/users', checkUserToken, UserController.readAll);
