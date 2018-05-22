@@ -1,4 +1,5 @@
 const Bar = require('../models/bars');
+const Food = require('../models/food');
 
 places = [];
 
