@@ -7,6 +7,7 @@ const accountSchema = new Schema(
     id: {
       type: String,
       unique: true,
+      dropDups: true,
       required: true
     },
     name: {
@@ -39,6 +40,10 @@ const accountSchema = new Schema(
     rate: {
       type: Number,
       default: 0
+    },
+    isActive: {
+      type: Boolean,
+      default: false
     },
     hobbies: {
       type: Array,

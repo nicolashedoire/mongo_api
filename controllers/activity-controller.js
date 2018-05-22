@@ -30,6 +30,7 @@ module.exports = {
       .populate('users')
       .then(results => {
         // show the admins in the past month
+        console.log(results);
         res.send(results);
       });
   },
@@ -78,6 +79,7 @@ module.exports = {
           user: user
         });
         user.activities.push(activity);
+        user.isActive = true;
         user.save().then(() => {
           activity.save().then(() => {
             Account.findOne({ id: req.body.userId })

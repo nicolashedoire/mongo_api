@@ -17,7 +17,7 @@ module.exports = {
       Query.find()
       .populate("activity", null,  { user: user._id })
       .then(queries => {
-        res.send(queries);
+        res.send(queries.filter((q) => !!q.activity));
       });
     });
   },
