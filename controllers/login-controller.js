@@ -3,16 +3,16 @@ const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const env = require('../environments/dev');
 
 function generateToken(user) {
-  const token = jwt.sign(
-    {
+  const token = jwt.sign({
       role: 'admin',
       email: user.email,
       id: user.id,
       image: user.image,
       name: user.name
     },
-    env.secret,
-    { expiresIn: '1h' }
+    env.secret, {
+      expiresIn: '1h'
+    }
   );
   // check jwt => https://jwt.io/
   return token;
@@ -20,21 +20,24 @@ function generateToken(user) {
 
 module.exports = {
   connect(req, res) {
-    let account = new Account(req.body);
-    
-    account.save().then(
-      () => {
-        res.send({
-          status: '200',
-          token: generateToken(account)
-        });
-      },
-      err => {
+    Account.find({
+      id: req.body.id
+    }).then(result => {
+      let account = new Account(req.body);
+      if (result.length === 0) {
+        account.save().then(
+          () => {
+            res.send({
+              status: '200',
+              token: generateToken(account)
+            });
+          });
+      } else {
         res.send({
           status: 'ALREADY_EXISTS',
           token: generateToken(account)
         });
       }
-    );
+    });
   }
 };
