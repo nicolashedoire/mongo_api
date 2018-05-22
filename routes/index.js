@@ -70,6 +70,7 @@ module.exports = server => {
   //PLACE
   server.get('/search/:place', checkUserToken, PlaceController.search);
   server.get('/places', checkUserToken, PlaceController.getAll);
+  server.get('/places/food', checkUserToken, PlaceController.getAllFood);
   server.post('/place', checkUserToken, PlaceController.add);
   server.post('/place/add-food', checkUserToken, PlaceController.addFood);
 };

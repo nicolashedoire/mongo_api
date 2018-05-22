@@ -10,6 +10,11 @@ module.exports = {
       res.send(bars);
     });
   },
+  getAllFood(req, res) {
+    Food.find().then( foods => {
+      res.send(foods);
+    })
+  },
   search(req, res) {
     let findedPlaces = places.filter(place =>
       place.name.includes(req.params.place)
