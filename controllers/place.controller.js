@@ -49,5 +49,36 @@ module.exports = {
         });
       }
     );
+  },
+
+  addFood(req, res) {
+    const data = req.body;
+    const formatted_adresss = data.formatted_address;
+    const id = data.id;
+    const name = data.name;
+    const place_id = data.place_id;
+    const vicinity = data.vicinity;
+    const location = data.geometry.location;
+    const photo = data.photo;
+
+    const food = new Food({
+      formatted_adresss: formatted_adresss,
+      id: id,
+      name: name,
+      place_id: place_id,
+      vicinity: vicinity,
+      location: location,
+      photo: photo
+    });
+    food.save().then(
+      () => {
+        res.send(food);
+      },
+      err => {
+        res.send({
+          status: 'ALREADY_EXISTS'
+        });
+      }
+    );
   }
 };
