@@ -50,6 +50,26 @@ module.exports = {
       });
     });
   },
+  getAllCurrentActivity(req, res) {
+    var startDate = new Date();
+    startDate.setHours(0, 0, 0, 0);
+    var endDate = new Date();
+    var day = endDate.getDate() + 1;
+    endDate.setDate(day);
+    endDate.setHours(0, 0, 0, 0);
+
+    Activity.count({
+      date: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    })
+    .then(activities => {
+      res.send({
+        activities: activities
+      });
+    });
+  },
   getByPlaceId(req, res) {
     var startDate = new Date();
     startDate.setHours(0, 0, 0, 0);
