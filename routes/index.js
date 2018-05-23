@@ -6,6 +6,7 @@ GroupController = require('../controllers/group-controller');
 PlaceController = require('../controllers/place.controller');
 QuerieController = require('../controllers/query-controller');
 AccountController = require('../controllers/account-controller');
+SportController = require('../controllers/sport-controller');
 
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const env = require('../environments/dev');
@@ -74,4 +75,7 @@ module.exports = server => {
   server.get('/places/food', checkUserToken, PlaceController.getAllFood);
   server.post('/place', checkUserToken, PlaceController.add);
   server.post('/place/add-food', checkUserToken, PlaceController.addFood);
+
+  //Sport
+  server.post('/sport/add', checkUserToken, SportController.add);
 };
