@@ -3,6 +3,7 @@ const Account = require('../models/accounts');
 const Query = require('../models/queries');
 const Bar = require('../models/bars');
 const Food = require('../models/food');
+const Sport = require('../models/sports');
 const ObjectId = require('mongoose').ObjectID;
 
 module.exports = {
@@ -122,6 +123,45 @@ module.exports = {
       id: id
     }).then(food => {
       placeName = food[0].name;
+      Account.findOne({
+        id: req.body.userId
+      }).then(user => {
+        const activity = new Activity({
+          label: label,
+          placeName: placeName,
+          placeId: id,
+          time: time,
+          user: user
+        });
+        user.activities.push(activity);
+        user.isActive = true;
+        user.save().then(() => {
+          activity.save().then(() => {
+            Account.findOne({
+                id: req.body.userId
+              })
+              .populate('activities')
+              .then(user => {
+                res.send({
+                  activities: user.activities
+                });
+              });
+          });
+        });
+      });
+    });
+  },
+  createSport(req, res) {
+    const name = req.body.label;
+    const city = req.body.city;
+    const time = req.body.time;
+    const id = req.body.placeId;
+    placeName = '';
+
+    Sport.find({
+      id: id
+    }).then(sport => {
+      placeName = sport[0].name;
       Account.findOne({
         id: req.body.userId
       }).then(user => {
