@@ -77,5 +77,6 @@ module.exports = server => {
   server.post('/place/add-food', checkUserToken, PlaceController.addFood);
 
   //Sport
+  server.get('/sports', checkUserToken, SportController.getAll);
   server.post('/sport/add', checkUserToken, SportController.add);
 };
