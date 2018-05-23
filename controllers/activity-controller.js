@@ -152,14 +152,17 @@ module.exports = {
     });
   },
   createSport(req, res) {
-    const name = req.body.label;
+    const label = req.body.label;
     const city = req.body.city;
     const time = req.body.time;
     const id = req.body.placeId;
+
+    // console.log(req.body);
+    // return;
     placeName = '';
 
     Sport.find({
-      id: id
+      _id: id
     }).then(sport => {
       placeName = sport[0].name;
       Account.findOne({

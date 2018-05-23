@@ -7,8 +7,9 @@ module.exports = {
     });
   },
   add(req, res) {
+
     const data = req.body;
-    const name = data.name;
+    const name = data.sportName;
 
     const sport = new Sport({
       name: name
