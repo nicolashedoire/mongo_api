@@ -1,4 +1,4 @@
-const Sport = require('../models/sport');
+const Sport = require('../models/sports');
 
 module.exports = {
   getAll(req, res) {
