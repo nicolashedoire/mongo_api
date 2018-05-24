@@ -27,5 +27,9 @@ module.exports = {
          }); 
     },
 
-    
+    resetIsActive(){
+        Account.updateMany({isActive : false}).then((accounts) => {
+            console.log('Les comptes sont remis à zero pour le jour suivant');
+        });
+    }
 };

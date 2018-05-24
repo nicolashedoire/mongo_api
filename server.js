@@ -9,6 +9,14 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const env = require('./environments/dev');
 
+
+const AccountController = require('./controllers/account-controller');
+
+var CronJob = require('cron').CronJob;
+new CronJob('00 00 12 * * * ', function() {
+  AccountController.resetIsActive();
+}, null, true, null);
+
 // Override mongoose promise by global promise
 mongoose.Promise = global.Promise;
 
